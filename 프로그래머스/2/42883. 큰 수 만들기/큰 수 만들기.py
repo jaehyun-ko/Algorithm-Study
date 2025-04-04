@@ -1,11 +1,14 @@
 def solution(number, k):
-    temp = [number[0]]
-    for i in number[1:]:
-        while len(temp)>0 and temp[-1]<i and k>0 :
+    stack = []
+    for digit in number:
+        # 큰 숫자를 만들기 위해 이전 숫자를 제거
+        while stack and k > 0 and stack[-1] < digit:
+            stack.pop()
             k -= 1
-            temp.pop()
-        temp.append(i)
-
-    if k!= 0:
-        temp = temp[:-k]
-    return  ''.join(temp)
+        stack.append(digit)
+    
+    # 아직 k가 남아있다면 뒤에서 제거
+    if k > 0:
+        stack = stack[:-k]
+    
+    return ''.join(stack)
