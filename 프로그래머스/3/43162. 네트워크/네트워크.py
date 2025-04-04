@@ -1,13 +1,13 @@
 def solution(n, computers):
-    def dfs(v):
-        visited[v] = True
-        for nei in range(n):
-            if not visited[nei] and computers[v][nei]:
-                dfs(nei)
-    count = 0   
-    visited = [False] * (n)
-    for node_idx in range(n):
-        if not visited[node_idx] :
-            dfs(node_idx)
-            count += 1         # dfs 끝나면 count 해주기 
+    visited = [False]*n
+    def dfs(node):
+        visited[node] = True
+        for next_node in range(n):
+            if computers[node][next_node] == 1 and not visited[next_node]:
+                dfs(next_node)
+    count = 0
+    for i in range(n):
+        if not visited[i]:
+            dfs(i)
+            count+=1
     return count
